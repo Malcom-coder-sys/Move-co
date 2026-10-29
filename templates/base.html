@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}MOVE&CO — Déménagement & Transport{% endblock %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/base.css' %}">
+  {% block extra_css %}{% endblock %}
+</head>
+<body>
+
+<nav>
+  <a href="{% url 'home' %}" class="nav-brand">MOVE<span>&</span>CO</a>
+  <div class="nav-links">
+    <a href="{% url 'home' %}"        class="{% if request.resolver_match.url_name == 'home' %}nav-btn btn{% endif %}">Accueil</a>
+    <a href="{% url 'services' %}"    class="{% if request.resolver_match.url_name == 'services' %}nav-btn btn{% endif %}">Services</a>
+    <a href="{% url 'galerie' %}"     class="{% if request.resolver_match.url_name == 'galerie' %}nav-btn btn{% endif %}">Galerie</a>
+    <a href="{% url 'admin_login' %}" class="{% if request.resolver_match.url_name == 'admin_login' or request.resolver_match.url_name == 'admin_dashboard' %}nav-btn btn{% endif %}">Admin</a>
+  </div>
+</nav>
+
+<main>{% block content %}{% endblock %}</main>
+
+<footer>
+  <p style="font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:2px;margin-bottom:6px;">MOVE<strong>&CO</strong></p>
+  <p>Votre partenaire de confiance pour tous vos déménagements · Yaoundé, Cameroun</p>
+  <p style="margin-top:8px;font-size:0.78rem;color:#4a5568;">© 2025 MOVE&CO — Tous droits réservés</p>
+</footer>
+
+{% block extra_js %}{% endblock %}
+</body>
+</html>

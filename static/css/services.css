@@ -1,0 +1,96 @@
+.page-header {
+  padding: 60px 5% 40px;
+  background: var(--navy2);
+  border-bottom: 1px solid rgba(255,107,26,0.1);
+}
+.page-header h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  letter-spacing: 2px;
+}
+.page-header h1 span { color: var(--orange); }
+.page-header p { color: var(--gray); margin-top: 8px; font-size: 1rem; }
+
+.page-body {
+  padding: 60px 5%;
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 48px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+@media(max-width:860px){ .page-body { grid-template-columns: 1fr; } }
+
+.form-card {
+  background: var(--navy2);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 20px;
+  padding: 40px;
+}
+.form-card h2 { font-size: 1.3rem; font-weight: 700; margin-bottom: 28px; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media(max-width:580px){ .form-row { grid-template-columns: 1fr; } }
+.form-group { margin-bottom: 18px; }
+.form-group label {
+  display: block; font-size: 0.85rem; font-weight: 600;
+  color: var(--gray); margin-bottom: 7px; letter-spacing: 0.3px;
+}
+.form-input {
+  width: 100%;
+  background: var(--navy3);
+  border: 1.5px solid rgba(255,255,255,0.08);
+  border-radius: 10px;
+  padding: 12px 16px;
+  color: var(--white);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.95rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  outline: none;
+  appearance: none;
+}
+.form-input:focus {
+  border-color: var(--orange);
+  box-shadow: 0 0 0 3px rgba(255,107,26,0.12);
+}
+.form-input::placeholder { color: #4a5568; }
+select.form-input { cursor: pointer; }
+.form-input option { background: var(--navy2); }
+.submit-btn {
+  width: 100%; padding: 15px;
+  background: var(--orange);
+  color: #fff; border: none; border-radius: 12px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1rem; font-weight: 700; cursor: pointer;
+  transition: all 0.25s;
+  box-shadow: 0 6px 24px rgba(255,107,26,0.3);
+  margin-top: 8px;
+}
+.submit-btn:hover {
+  background: var(--orange2);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 32px rgba(255,107,26,0.4);
+}
+.error-text { color: var(--red); font-size: 0.8rem; margin-top: 5px; }
+
+.sidebar-services { display: flex; flex-direction: column; gap: 14px; }
+.s-card {
+  background: var(--navy2);
+  border: 1.5px solid rgba(255,255,255,0.06);
+  border-radius: 14px; padding: 20px;
+  cursor: pointer; transition: all 0.25s;
+  display: flex; align-items: center; gap: 14px;
+}
+.s-card:hover, .s-card.active {
+  border-color: var(--orange);
+  background: rgba(255,107,26,0.07);
+}
+.s-card .s-icon { font-size: 1.8rem; flex-shrink: 0; }
+.s-card h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 2px; }
+.s-card p  { color: var(--gray); font-size: 0.8rem; line-height: 1.4; }
+.sidebar-note {
+  background: rgba(255,107,26,0.07);
+  border: 1px solid rgba(255,107,26,0.2);
+  border-radius: 12px; padding: 16px 18px;
+  font-size: 0.85rem; color: var(--gray); line-height: 1.6;
+}
+.sidebar-note strong { color: var(--orange); }

@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Commander — MOVE&CO{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/services.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="page-header">
+  <h1>RÉSERVER UN <span>SERVICE</span></h1>
+  <p>Remplissez le formulaire ci-dessous, notre équipe vous contacte rapidement.</p>
+</div>
+
+<div class="page-body">
+  <div class="form-card fade-up">
+    <h2>📋 Votre demande de service</h2>
+    <form method="post" action="{% url 'commander' %}">
+      {% csrf_token %}
+      <div class="form-row">
+        <div class="form-group">
+          <label>{{ form.nom.label }}</label>
+          {{ form.nom }}
+          {% if form.nom.errors %}<p class="error-text">{{ form.nom.errors.0 }}</p>{% endif %}
+        </div>
+        <div class="form-group">
+          <label>{{ form.telephone.label }}</label>
+          {{ form.telephone }}
+          {% if form.telephone.errors %}<p class="error-text">{{ form.telephone.errors.0 }}</p>{% endif %}
+        </div>
+      </div>
+      <div class="form-group">
+        <label>{{ form.email.label }}</label>
+        {{ form.email }}
+        {% if form.email.errors %}<p class="error-text">{{ form.email.errors.0 }}</p>{% endif %}
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>{{ form.service.label }}</label>
+          {{ form.service }}
+          {% if form.service.errors %}<p class="error-text">{{ form.service.errors.0 }}</p>{% endif %}
+        </div>
+        <div class="form-group">
+          <label>{{ form.date.label }}</label>
+          {{ form.date }}
+          {% if form.date.errors %}<p class="error-text">{{ form.date.errors.0 }}</p>{% endif %}
+        </div>
+      </div>
+      <div class="form-group">
+        <label>{{ form.adresse.label }}</label>
+        {{ form.adresse }}
+      </div>
+      <div class="form-group">
+        <label>{{ form.message.label }}</label>
+        {{ form.message }}
+      </div>
+      <button type="submit" class="submit-btn">➔ Envoyer ma demande</button>
+    </form>
+  </div>
+
+  <div>
+    <p style="font-size:0.8rem;font-weight:700;color:var(--gray);letter-spacing:2px;text-transform:uppercase;margin-bottom:14px;">Nos services</p>
+    <div class="sidebar-services">
+      <div class="s-card {% if service_preselect == 'Déménagement simple' %}active{% endif %}">
+        <span class="s-icon">🏠</span>
+        <div><h4>Déménagement simple</h4><p>Transfert complet de vos affaires d'un lieu à un autre.</p></div>
+      </div>
+      <div class="s-card {% if service_preselect == 'Déménagement & Aménagement' %}active{% endif %}">
+        <span class="s-icon">🛋️</span>
+        <div><h4>Déménagement & Aménagement</h4><p>Déménagement + installation dans le nouveau logement.</p></div>
+      </div>
+      <div class="s-card {% if service_preselect == 'Transport de colis' %}active{% endif %}">
+        <span class="s-icon">📦</span>
+        <div><h4>Transport de colis</h4><p>Livraison express de vos colis à Yaoundé.</p></div>
+      </div>
+      <div class="s-card {% if service_preselect == 'Aménagement intérieur' %}active{% endif %}">
+        <span class="s-icon">🔧</span>
+        <div><h4>Aménagement intérieur</h4><p>Organisation et installation de vos espaces.</p></div>
+      </div>
+    </div>
+    <div class="sidebar-note" style="margin-top:20px;">
+      <strong>⏱ Délai de réponse</strong><br>
+      Notre équipe vous contacte dans les <strong>24 à 48h</strong> pour confirmer votre rendez-vous.
+    </div>
+    <div class="sidebar-note" style="margin-top:12px;">
+      <strong>📞 Besoin d'aide ?</strong><br>
+      Appelez-nous au <strong>+237 671 05 74 20</strong> du lundi au samedi.
+    </div>
+  </div>
+</div>
+
+{% endblock %}

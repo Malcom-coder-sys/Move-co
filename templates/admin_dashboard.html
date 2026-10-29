@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Dashboard Admin — MOVE&CO{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/admin.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="dash-header">
+  <div>
+    <h1>DASHBOARD <span>ADMIN</span></h1>
+    <p style="color:var(--gray);font-size:0.85rem;margin-top:4px;">Gestion des commandes MOVE&CO</p>
+  </div>
+  <a href="{% url 'admin_logout' %}" class="btn btn-outline" style="font-size:0.85rem;padding:9px 18px;">🚪 Déconnexion</a>
+</div>
+
+<div class="dash-body">
+
+  <!-- STATS -->
+  <div class="stats-row">
+    <div class="stat-card fade-up delay-1">
+      <div class="s-label">Total commandes</div>
+      <div class="s-value s-orange">{{ stats.total }}</div>
+      <div class="s-sub">Toutes les demandes</div>
+    </div>
+    <div class="stat-card fade-up delay-2">
+      <div class="s-label">En attente</div>
+      <div class="s-value s-yellow">{{ stats.en_attente }}</div>
+      <div class="s-sub">À traiter</div>
+    </div>
+    <div class="stat-card fade-up delay-3">
+      <div class="s-label">Confirmées</div>
+      <div class="s-value s-green">{{ stats.confirme }}</div>
+      <div class="s-sub">Planifiées</div>
+    </div>
+    <div class="stat-card fade-up delay-4">
+      <div class="s-label">Annulées</div>
+      <div class="s-value s-red">{{ stats.annule }}</div>
+      <div class="s-sub">Clôturées</div>
+    </div>
+  </div>
+
+  <!-- GRAPHES -->
+  <div class="charts-row">
+    <div class="chart-card fade-up">
+      <h3>📈 Évolution des demandes</h3>
+      <p>30 derniers jours</p>
+      <canvas id="chartEvolution" height="110"></canvas>
+    </div>
+    <div class="chart-card fade-up delay-2">
+      <h3>🍩 Répartition par service</h3>
+      <p>Toutes les commandes</p>
+      <canvas id="chartServices" height="180"></canvas>
+    </div>
+  </div>
+
+  <!-- FILTRES -->
+  <div class="filter-bar">
+    <a href="{% url 'admin_dashboard' %}" class="filter-btn {% if not statut_filter %}active{% endif %}">Toutes</a>
+    <a href="?statut=en_attente"          class="filter-btn {% if statut_filter == 'en_attente' %}active{% endif %}">⏳ En attente</a>
+    <a href="?statut=confirme"            class="filter-btn {% if statut_filter == 'confirme' %}active{% endif %}">✅ Confirmées</a>
+    <a href="?statut=annule"              class="filter-btn {% if statut_filter == 'annule' %}active{% endif %}">❌ Annulées</a>
+  </div>
+
+  <!-- TABLEAU -->
+  <div class="table-wrapper fade-up">
+    <div class="table-head">
+      <h3>📋 Liste des commandes</h3>
+      <span style="font-size:0.82rem;color:var(--gray);">{{ commandes|length }} résultat(s)</span>
+    </div>
+    {% if commandes %}
+    <table>
+      <thead>
+        <tr><th>#</th><th>Client</th><th>Service</th><th>Date</th><th>Statut</th><th>Actions</th></tr>
+      </thead>
+      <tbody>
+        {% for c in commandes %}
+        <tr>
+          <td style="color:var(--gray);font-size:0.8rem;">#{{ c.pk }}</td>
+          <td>
+            <div style="font-weight:600;">{{ c.nom }}</div>
+            <div style="font-size:0.78rem;color:var(--gray);">{{ c.email }}</div>
+            <div style="font-size:0.78rem;color:var(--gray);">{{ c.telephone }}</div>
+          </td>
+          <td>{{ c.service }}</td>
+          <td>{{ c.date }}</td>
+          <td>
+            {% if c.statut == 'en_attente' %}<span class="badge badge-yellow">⏳ En attente</span>
+            {% elif c.statut == 'confirme' %}<span class="badge badge-green">✅ Confirmé</span>
+            {% else %}<span class="badge badge-red">❌ Annulé</span>{% endif %}
+          </td>
+          <td>
+            <form class="action-form" method="post" action="{% url 'admin_update_statut' c.pk %}">
+              {% csrf_token %}
+              <select name="statut" class="action-select" onchange="this.form.submit()">
+                <option value="en_attente" {% if c.statut == 'en_attente' %}selected{% endif %}>⏳ En attente</option>
+                <option value="confirme"   {% if c.statut == 'confirme'   %}selected{% endif %}>✅ Confirmé</option>
+                <option value="annule"     {% if c.statut == 'annule'     %}selected{% endif %}>❌ Annulé</option>
+              </select>
+            </form>
+            <form class="action-form" method="post" action="{% url 'admin_delete' c.pk %}"
+                  onsubmit="return confirm('Supprimer la commande de {{ c.nom|escapejs }} ?')">
+              {% csrf_token %}
+              <button type="submit" class="btn-del" style="margin-top:6px;">🗑 Suppr.</button>
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <div class="empty-state">
+      <div style="font-size:3rem;margin-bottom:12px;">📭</div>
+      <p>Aucune commande trouvée.</p>
+    </div>
+    {% endif %}
+  </div>
+
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<!-- Données Django injectées pour Chart.js -->
+{{ chart_data|json_script:"chart-data" }}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script src="{% static 'js/dashboard.js' %}"></script>
+{% endblock %}

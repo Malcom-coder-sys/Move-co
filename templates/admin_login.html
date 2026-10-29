@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Admin — MOVE&CO{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/admin.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="login-page">
+  <div class="login-card">
+    <div class="login-icon">🔐</div>
+    <h1>ESPACE ADMIN</h1>
+    <p>Connectez-vous pour gérer les commandes</p>
+
+    {% if error %}
+    <div class="error-msg">{{ error }}</div>
+    {% endif %}
+
+    <form method="post">
+      {% csrf_token %}
+      <div class="form-group">
+        <label>Mot de passe administrateur</label>
+        <input type="password" name="password" class="form-input" placeholder="••••••••" autofocus>
+      </div>
+      <button type="submit" class="login-btn">➔ Se connecter</button>
+    </form>
+    <p style="margin-top:20px;font-size:0.8rem;">
+      <a href="{% url 'home' %}" style="color:var(--gray);text-decoration:none;">← Retour au site</a>
+    </p>
+  </div>
+</div>
+{% endblock %}

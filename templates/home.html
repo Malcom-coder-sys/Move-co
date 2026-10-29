@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/home.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-truck">🚚</div>
+  <div class="hero-content">
+    <div class="hero-tag fade-up">Service professionnel</div>
+    <h1 class="fade-up delay-1">VOTRE<br>DÉMÉNAGEMENT<br><em>SIMPLIFIÉ.</em></h1>
+    <p class="fade-up delay-2">MOVE&CO prend en charge vos déménagements, transport de colis et aménagements intérieurs à Yaoundé et ses environs.</p>
+    <div class="hero-btns fade-up delay-3">
+      <a href="{% url 'services' %}" class="btn btn-primary">➔ Réserver maintenant</a>
+      <a href="#services" class="btn btn-outline">Voir nos services</a>
+    </div>
+  </div>
+</section>
+
+<div class="stats-bar">
+  <div class="stat-item fade-up delay-1"><h3>500+</h3><p>Déménagements réalisés</p></div>
+  <div class="stat-item fade-up delay-2"><h3>4.9★</h3><p>Note moyenne clients</p></div>
+  <div class="stat-item fade-up delay-3"><h3>48H</h3><p>Délai de confirmation</p></div>
+  <div class="stat-item fade-up delay-4"><h3>100%</h3><p>Satisfaction garantie</p></div>
+</div>
+
+<section class="section" id="services">
+  <p class="section-label">Ce que nous faisons</p>
+  <h2 class="section-title">NOS SERVICES</h2>
+  <div class="services-grid">
+    <a href="{% url 'services' %}?service=Déménagement+simple" class="service-card fade-up delay-1">
+      <span class="service-icon">🏠</span>
+      <h3>Déménagement simple</h3>
+      <p>Transport de vos meubles et affaires d'un logement à un autre, rapidement et en toute sécurité.</p>
+      <div class="service-arrow">Réserver ➔</div>
+    </a>
+    <a href="{% url 'services' %}?service=Déménagement+%26+Aménagement" class="service-card fade-up delay-2">
+      <span class="service-icon">🛋️</span>
+      <h3>Déménagement & Aménagement</h3>
+      <p>On déplace et on installe vos meubles dans votre nouveau logement selon vos préférences.</p>
+      <div class="service-arrow">Réserver ➔</div>
+    </a>
+    <a href="{% url 'services' %}?service=Transport+de+colis" class="service-card fade-up delay-3">
+      <span class="service-icon">📦</span>
+      <h3>Transport de colis</h3>
+      <p>Livraison express de vos colis et marchandises à Yaoundé et les villes environnantes.</p>
+      <div class="service-arrow">Réserver ➔</div>
+    </a>
+    <a href="{% url 'services' %}?service=Aménagement+intérieur" class="service-card fade-up delay-4">
+      <span class="service-icon">🔧</span>
+      <h3>Aménagement intérieur</h3>
+      <p>Installation et organisation de vos meubles pour un intérieur fonctionnel et esthétique.</p>
+      <div class="service-arrow">Réserver ➔</div>
+    </a>
+  </div>
+</section>
+
+<section class="why-section">
+  <div class="why-grid">
+    <div class="why-left fade-up">
+      <p class="section-label">Pourquoi nous choisir</p>
+      <h2>UNE ÉQUIPE DE CONFIANCE À VOS CÔTÉS</h2>
+      <p>Depuis notre création, nous avons accompagné des centaines de familles et d'entreprises dans leurs déménagements à Yaoundé.</p>
+      <a href="{% url 'services' %}" class="btn btn-primary">Faire une demande</a>
+    </div>
+    <div class="why-features">
+      <div class="why-feature fade-up delay-1">
+        <div class="why-feature-icon">⚡</div>
+        <div><h4>Réponse rapide</h4><p>Votre demande est traitée dans les 24 à 48 heures suivant la réservation.</p></div>
+      </div>
+      <div class="why-feature fade-up delay-2">
+        <div class="why-feature-icon">🛡️</div>
+        <div><h4>Matériel protégé</h4><p>Nous utilisons des emballages professionnels pour protéger tous vos biens.</p></div>
+      </div>
+      <div class="why-feature fade-up delay-3">
+        <div class="why-feature-icon">💰</div>
+        <div><h4>Prix transparents</h4><p>Pas de frais cachés, nos tarifs sont clairs et définis avant toute intervention.</p></div>
+      </div>
+      <div class="why-feature fade-up delay-4">
+        <div class="why-feature-icon">📱</div>
+        <div><h4>Suivi en temps réel</h4><p>Consultez le statut de votre commande à tout moment depuis votre confirmation.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <h2 class="fade-up">PRÊT À DÉMÉNAGER ?</h2>
+  <p class="fade-up delay-1">Remplissez notre formulaire en moins de 2 minutes et notre équipe vous contacte rapidement.</p>
+  <a href="{% url 'services' %}" class="btn btn-primary fade-up delay-2" style="font-size:1rem;padding:16px 36px;">➔ Réserver maintenant</a>
+</section>
+
+{% endblock %}

@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% block title %}Confirmation — MOVE&CO{% endblock %}
+{% block extra_css %}
+<style>
+.success-page {
+  min-height: calc(100vh - 70px);
+  display: flex; align-items: center; justify-content: center;
+  padding: 40px 20px;
+}
+.success-card {
+  background: var(--navy2);
+  border: 1px solid rgba(16,185,129,0.25);
+  border-radius: 24px; padding: 56px 48px;
+  max-width: 560px; width: 100%; text-align: center;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+  animation: fadeUp 0.6s ease;
+}
+.success-icon {
+  width: 80px; height: 80px; border-radius: 50%;
+  background: rgba(16,185,129,0.12);
+  border: 2px solid rgba(16,185,129,0.3);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 2.2rem; margin: 0 auto 24px;
+}
+.success-card h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.5rem; letter-spacing: 2px;
+  color: var(--green); margin-bottom: 10px;
+}
+.success-card p { color: var(--gray); line-height: 1.7; margin-bottom: 28px; }
+.detail-grid {
+  background: var(--navy3); border-radius: 14px; padding: 24px;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+  text-align: left; margin-bottom: 32px;
+}
+.detail-item label { font-size: 0.75rem; color: var(--gray); font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; }
+.detail-item p { font-size: 0.95rem; font-weight: 600; margin-top: 3px; }
+.statut-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(245,158,11,0.12);
+  border: 1px solid rgba(245,158,11,0.3);
+  color: var(--yellow);
+  border-radius: 50px; padding: 5px 14px; font-size: 0.82rem; font-weight: 600;
+}
+.success-btns { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="success-page">
+  <div class="success-card">
+    <div class="success-icon">✅</div>
+    <h1>DEMANDE ENVOYÉE !</h1>
+    <p>Merci <strong>{{ commande.nom }}</strong> ! Votre demande a bien été enregistrée. Notre équipe vous contactera très prochainement.</p>
+
+    <div class="detail-grid">
+      <div class="detail-item">
+        <label>Service</label>
+        <p>{{ commande.service }}</p>
+      </div>
+      <div class="detail-item">
+        <label>Date souhaitée</label>
+        <p>{{ commande.date }}</p>
+      </div>
+      <div class="detail-item">
+        <label>Email</label>
+        <p>{{ commande.email }}</p>
+      </div>
+      <div class="detail-item">
+        <label>Statut</label>
+        <p><span class="statut-badge">⏳ {{ commande.statut_label }}</span></p>
+      </div>
+    </div>
+
+    <div class="success-btns">
+      <a href="{% url 'home' %}" class="btn btn-outline">← Accueil</a>
+      <a href="{% url 'services' %}" class="btn btn-primary">Nouvelle commande</a>
+    </div>
+  </div>
+</div>
+{% endblock %}
